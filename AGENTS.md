@@ -64,7 +64,8 @@ Each recipe is an object keyed by id, shaped like:
 
 ```js
 'recipe-id': {
-  name, icon, tags: ['nut-free', 'dairy-free', ...], time,
+  name, icon, category: 'Breakfast'|'Lunch'|'Dinner'|'Snack'|'Dessert',
+  tags: ['nut-free', 'dairy-free', ...], time,
   saved: true/false, savedDate or match,
   desc,
   ingredients: [{ id, name, icon, have: true/false, options: [{store, price}, ...] }],
@@ -91,6 +92,23 @@ Ingredient ownership is updated by `setShoppingIngredientHave()`, so Shopping
 List checkboxes and Recipe Detail "already have" checkboxes share the same
 ingredient state. `getShoppingItems()` selects the cheapest existing demo
 option for each product; the weekly summary and shopping total reuse it.
+
+Saved Recipes combines `activeCategory`, `activeSavedFilter`, and `searchTerm`.
+`recipeMatchesSearch()` searches recipe name, description, category, tags, and
+ingredient names. The category selector and dietary chips apply to both saved
+recipes and suggestions.
+
+`renderDashboard()` calculates its summary cards from `getPlannedRecipes()`,
+`getShoppingItems()`, and the current saved flags. Its recommendations are
+deliberately simple: the first three recipes that are safe for the profile,
+not already saved, and not already planned. The dashboard's Tonight's meal
+panel uses today's planned recipe, or the next planned recipe when today is
+empty.
+
+Recipe Detail and suggestion cards can call `openPlanAddDialog()` so the user
+chooses a weekday before `addRecipeToPlan()` writes the existing
+`mealSelections` state. This reuses the same meal-plan and shopping-list
+calculation path rather than creating a second planner.
 
 ## Known limitations / roadmap (what a real v2 would need)
 

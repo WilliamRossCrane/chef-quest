@@ -27,11 +27,14 @@ tab to see changes.
 ## Features in this prototype
 
 - **Dashboard** — recent recipes, grocery deals
-- **Saved Recipes** — a small recipe database with working filters (dairy-free, nut-free, gluten-free, under 30 min, vegetarian), a live search bar, and persistent save/unsave controls
+- **Saved Recipes** — a twenty-recipe catalogue with Breakfast, Lunch, Dinner, Snack, and Dessert categories; combined category/dietary filters; multi-field search; and persistent save/unsave controls
 - **Cupboard Scanner** — clearly marked **"Coming soon"**. Real ingredient recognition from a photo needs a camera + an image-recognition API, which is out of scope for a static prototype. The screen still shows, step by step, what it _will_ do once that's built
 - **Weekly Meal Plan** — 7 days with selected recipes, cooking times, dietary tags, Change meal, Remove, View recipe, searchable recipe picking, allergy-aware filtering, and a live weekly summary
 - **Automatic Shopping List** — generated from the recipe IDs selected in the weekly plan; shared ingredients are aggregated, linked back to every meal, and split into Need to Buy and Already Have
 - **Estimated demo cost** — each needed ingredient uses the cheapest existing demo price and can disclose alternative store prices. Ownership changes update the list and total immediately.
+- **Recipe search** — searches names, descriptions, categories, dietary tags, and ingredient names, so queries such as `chicken` and `pasta` find useful matches beyond titles.
+- **Personalised Dashboard** — shows planned meals, shopping count, estimated demo cost, saved recipes, tonight's or the next planned meal, a shopping snapshot, and three transparent rule-based suggestions.
+- **Add to meal plan** — save a recipe or open its detail page, choose a weekday, and Chef Quest updates the existing weekly plan and shopping list.
 - **Recipe Detail** — every recipe has real ingredients, method steps, dietary-swap tips, and a price comparison panel. Ticking "already have this" removes it from the total cost live
 - **Profile** — edit your name and allergies; saving updates the filters on Saved Recipes and Meal Plan to match
 - **Local persistence** — profile details, allergy choices, saved recipes, pantry checks, store selections, and meal-plan swaps survive refreshes through browser `localStorage`. Use **Reset demo** in the sidebar to restore the starting state.
@@ -46,6 +49,7 @@ tab to see changes.
   image-recognition model (see `AGENTS.md` for options).
 - **Persistence is local to one browser** — this demo uses `localStorage`, so state is not shared between devices, browsers, or users. A real product would still need accounts and a backend database.
 - **There is no live supermarket integration** — all grocery prices are prototype values and actual store prices may vary.
+- **Recommendations are not AI** — they are simple profile-safe, unsaved, and unplanned recipe suggestions.
 
 These are good, honest talking points for a business pitch: they show you've
 thought about what's realistic for a prototype versus a shipped product.
