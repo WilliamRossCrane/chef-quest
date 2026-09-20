@@ -401,6 +401,7 @@
               >
                 ☆ Save recipe
               </button>
+              <button class="plan-recipe-btn" id="rdPlanBtn" onclick="openPlanAddDialog(currentRecipeId)">＋ Add to meal plan</button>
               <div class="rd-meta-row" id="rdMeta"></div>
               <p class="rd-desc" id="rdDesc"></p>
 
@@ -515,6 +516,15 @@
         <input class="picker-search" id="pickerSearch" type="search" placeholder="Search recipes..." />
         <label class="unsafe-toggle"><input type="checkbox" id="unsafePickerToggle" /> Show recipes that do not match my settings</label>
         <div class="picker-list" id="mealPickerList"></div>
+      </div>
+    </div>
+
+    <div class="picker-overlay" id="planAddDialog" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="planAddTitle">
+      <div class="picker-dialog plan-add-dialog">
+        <div class="picker-head"><div><h2 id="planAddTitle">Add recipe to your week</h2><p id="planAddRecipeName">Choose a day for this recipe.</p></div><button class="picker-close" onclick="closePlanAddDialog()" aria-label="Close add to meal plan dialog">×</button></div>
+        <label class="plan-day-label" for="planAddDay">Day</label>
+        <select class="plan-day-select" id="planAddDay"></select>
+        <button class="cta-btn" onclick="addRecipeToPlan()">Add to meal plan</button>
       </div>
     </div>
 

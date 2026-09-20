@@ -1324,9 +1324,9 @@ function renderSavedRecipes() {
         <div class="recipe-thumb">${r.icon}</div>
         <div class="recipe-info">
           <div class="rname">${r.name}</div>
-          <div class="rmeta"><span class="recipe-category">${r.category}</span> · ${r.match}</div>
+          <div class="rmeta"><span class="recipe-category">${r.category}</span> · ${r.time} · ${r.match}</div>
         </div>
-        <div class="arrow-ic">→</div>`;
+        <div class="recipe-card-actions"><button class="mini-action" onclick="toggleRecipeSave('${id}', event)">☆ Save</button><button class="mini-action" onclick="openPlanAddDialog('${id}'); event.stopPropagation()">＋ Plan</button></div>`;
     suggestList.appendChild(row);
     suggestionsShown++;
   });
@@ -1633,6 +1633,41 @@ function closeMealPicker() {
   document.getElementById("mealPicker").setAttribute("aria-hidden", "true");
 }
 
+function openPlanAddDialog(recipeId) {
+  const dialog = document.getElementById("planAddDialog");
+  const daySelect = document.getElementById("planAddDay");
+  daySelect.innerHTML = days
+    .map(
+      (day) =>
+        `<option value="${day}">${day}${mealSelections[day] ? " · replace current meal" : " · empty"}</option>`,
+    )
+    .join("");
+  daySelect.value = days.find((day) => !mealSelections[day]) || days[0];
+  dialog.dataset.recipeId = recipeId;
+  document.getElementById("planAddRecipeName").textContent =
+    recipesDB[recipeId].name + " · choose a day for this recipe.";
+  dialog.classList.add("open");
+  dialog.setAttribute("aria-hidden", "false");
+}
+
+function closePlanAddDialog() {
+  const dialog = document.getElementById("planAddDialog");
+  dialog.classList.remove("open");
+  dialog.setAttribute("aria-hidden", "true");
+}
+
+function addRecipeToPlan() {
+  const dialog = document.getElementById("planAddDialog");
+  const recipeId = dialog.dataset.recipeId;
+  const day = document.getElementById("planAddDay").value;
+  mealSelections[day] = recipeId;
+  persistState();
+  closePlanAddDialog();
+  renderWeek();
+  goTo("mealplan");
+  showToast(recipesDB[recipeId].name + " added to " + day + ".");
+}
+
 function renderMealPicker() {
   const list = document.getElementById("mealPickerList");
   const query = document
@@ -1683,12 +1718,20 @@ document
 document.getElementById("mealPicker").addEventListener("click", (event) => {
   if (event.target === event.currentTarget) closeMealPicker();
 });
+document.getElementById("planAddDialog").addEventListener("click", (event) => {
+  if (event.target === event.currentTarget) closePlanAddDialog();
+});
 document.addEventListener("keydown", (event) => {
   if (
     event.key === "Escape" &&
     document.getElementById("mealPicker").classList.contains("open")
   )
     closeMealPicker();
+  if (
+    event.key === "Escape" &&
+    document.getElementById("planAddDialog").classList.contains("open")
+  )
+    closePlanAddDialog();
 });
 document.querySelectorAll("#allergyFilterRow .chip").forEach((c) => {
   c.addEventListener("click", () => {
@@ -1722,7 +1765,8 @@ function renderRecipeDetail(id) {
   document.getElementById("rdTitle").textContent = r.name;
   document.getElementById("rdDesc").textContent = r.desc;
   document.getElementById("rdMeta").innerHTML =
-    `<span>${r.time}</span>` + r.tags.map((t) => `<span>${t}</span>`).join("");
+    `<span>${r.category}</span><span>${r.time}</span>` +
+    r.tags.map((t) => `<span>${t}</span>`).join("");
   const saveButton = document.getElementById("rdSaveBtn");
   saveButton.textContent = r.saved ? "★ Saved recipe" : "☆ Save recipe";
   saveButton.classList.toggle("saved", r.saved);
