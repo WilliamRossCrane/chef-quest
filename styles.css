@@ -1121,6 +1121,13 @@ table.recipe-log tr:last-child td {
   gap: 26px;
   align-items: start;
 }
+.recipe-detail > div:first-child {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
 @media (max-width: 860px) {
   .recipe-detail {
     grid-template-columns: 1fr;
@@ -1141,11 +1148,12 @@ table.recipe-log tr:last-child td {
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, #7a4a26, #4a2c16);
+  background: linear-gradient(135deg, var(--peach-soft), var(--cream-deep));
+  border: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 58px;
+  font-size: 72px;
   margin-bottom: 16px;
 }
 .rd-title {
@@ -1260,7 +1268,7 @@ table.recipe-log tr:last-child td {
 }
 .rd-desc {
   font-size: 13.5px;
-  color: #5b5644;
+  color: var(--ink);
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -1283,7 +1291,8 @@ table.recipe-log tr:last-child td {
   font-size: 13.5px;
   color: var(--ink);
   padding: 8px 10px;
-  background: var(--paper);
+  background: var(--cream);
+  border: 1px solid var(--line);
   border-radius: 9px;
 }
 .ing-list li input {
@@ -1364,10 +1373,11 @@ table.recipe-log tr:last-child td {
   margin-bottom: 8px;
 }
 .price-panel {
-  background: var(--white);
+  background: var(--peach-soft);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 20px;
+  box-shadow: var(--shadow-soft);
   position: sticky;
   top: 20px;
 }
@@ -1383,7 +1393,7 @@ table.recipe-log tr:last-child td {
 .price-panel .ppnote {
   font-size: 10.5px;
   color: var(--brown);
-  background: var(--paper);
+  background: var(--white);
   padding: 8px 10px;
   border-radius: 9px;
   margin-bottom: 14px;
