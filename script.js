@@ -1044,6 +1044,16 @@ document
 document
   .getElementById("unsafePickerToggle")
   .addEventListener("change", renderMealPicker);
+document.getElementById("mealPicker").addEventListener("click", (event) => {
+  if (event.target === event.currentTarget) closeMealPicker();
+});
+document.addEventListener("keydown", (event) => {
+  if (
+    event.key === "Escape" &&
+    document.getElementById("mealPicker").classList.contains("open")
+  )
+    closeMealPicker();
+});
 document.querySelectorAll("#allergyFilterRow .chip").forEach((c) => {
   c.addEventListener("click", () => {
     document
