@@ -1820,7 +1820,8 @@ table.recipe-log tr:last-child td {
 }
 .shopping-note {
   color: var(--brown);
-  background: var(--paper);
+  background: var(--peach-soft);
+  border: 1px solid var(--line);
   border-radius: 9px;
   font-size: 11px;
   line-height: 1.5;
@@ -1840,6 +1841,9 @@ table.recipe-log tr:last-child td {
 }
 .shopping-section-head h3 {
   font-size: 17px;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 .shopping-section-head span {
   color: var(--muted);
@@ -1854,17 +1858,18 @@ table.recipe-log tr:last-child td {
   display: flex;
   align-items: center;
   gap: 11px;
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--line);
   border-radius: var(--radius-md);
   background: var(--white);
   padding: 11px 13px;
+  box-shadow: 0 3px 0 rgba(234, 216, 196, 0.42);
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
 }
 .shopping-item:hover {
-  border-color: var(--gold);
-  box-shadow: 0 5px 16px rgba(27, 58, 107, 0.06);
+  border-color: var(--peach);
+  box-shadow: 0 5px 0 rgba(246, 180, 135, 0.32);
 }
 .shopping-check input {
   position: absolute;
@@ -1886,8 +1891,8 @@ table.recipe-log tr:last-child td {
   justify-content: center;
 }
 .shopping-check input:checked + .checkmark {
-  background: var(--brown);
-  border-color: var(--brown);
+  background: var(--black);
+  border-color: var(--black);
 }
 .shopping-check input:checked + .checkmark::after {
   content: "✓";
@@ -1906,7 +1911,7 @@ table.recipe-log tr:last-child td {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--paper);
+  background: var(--peach-soft);
   border-radius: 9px;
   font-size: 19px;
 }
@@ -1964,12 +1969,15 @@ table.recipe-log tr:last-child td {
 }
 .price-options {
   flex: 0 0 auto;
-  color: var(--brown);
+  color: var(--black);
   font-size: 10px;
 }
 .price-options summary {
   cursor: pointer;
   font-weight: 700;
+  background: var(--peach-soft);
+  border-radius: 99px;
+  padding: 4px 7px;
 }
 .price-options div {
   display: flex;
@@ -1991,7 +1999,7 @@ table.recipe-log tr:last-child td {
   text-align: center;
 }
 .all-owned {
-  background: #e4efe3;
+  background: var(--positive-soft);
   border-style: solid;
   border-color: var(--brown-soft);
   color: var(--brown);
