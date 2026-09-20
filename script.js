@@ -1238,8 +1238,11 @@ function setShoppingIngredientHave(key, have) {
 function shoppingItemMarkup(item) {
   const uses = [...new Set(item.sources.map((source) => source.day + " · " + source.recipeName))];
   const useLabel = uses.length === 1 ? "Used in " + uses[0] : "Used in " + uses.length + " meals";
+  const useLinks = [...new Map(item.sources.map((source) => [source.recipeId, source])).values()]
+    .map((source) => `<button onclick="openRecipe('${source.recipeId}')">${source.day}: ${source.recipeName}</button>`)
+    .join("");
   const priceLabel = item.cheapest ? "Cheapest demo option: " + item.cheapest.store + " · $" + item.cheapest.price.toFixed(2) : "No demo price available";
-  return `<div class="shopping-item"><label class="shopping-check"><input type="checkbox" aria-label="Mark ${item.name} as already have" ${item.have ? "checked" : ""} onchange="setShoppingIngredientHave('${item.key}', this.checked)" /><span class="checkmark"></span></label><div class="shopping-icon">${item.icon}</div><div class="shopping-item-copy"><b>${item.name}</b><span>${useLabel}</span><small>${priceLabel}</small></div>${item.options.length > 1 ? `<details class="price-options"><summary>Prices</summary><div>${item.options.map((option) => `<span>${option.store}: $${option.price.toFixed(2)}</span>`).join("")}</div></details>` : ""}</div>`;
+  return `<div class="shopping-item"><label class="shopping-check"><input type="checkbox" aria-label="Mark ${item.name} as already have" ${item.have ? "checked" : ""} onchange="setShoppingIngredientHave('${item.key}', this.checked)" /><span class="checkmark"></span></label><div class="shopping-icon">${item.icon}</div><div class="shopping-item-copy"><b>${item.name}</b><span>${useLabel}</span><small>${priceLabel}</small><details class="used-in"><summary>View recipes</summary><div>${useLinks}</div></details></div>${item.options.length > 1 ? `<details class="price-options"><summary>Prices</summary><div>${item.options.map((option) => `<span>${option.store}: $${option.price.toFixed(2)}</span>`).join("")}</div></details>` : ""}</div>`;
 }
 
 function renderShoppingList() {

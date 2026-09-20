@@ -1585,6 +1585,11 @@ table.recipe-log tr:last-child td {
 .shopping-item-copy b { color: var(--black); font-size: 13px; }
 .shopping-item-copy span { color: var(--brown); font-size: 10.5px; margin-top: 2px; }
 .shopping-item-copy small { color: var(--muted); font-size: 10.5px; margin-top: 2px; }
+.used-in { color: var(--brown); font-size: 10px; margin-top: 4px; }
+.used-in summary { cursor: pointer; font-weight: 700; }
+.used-in div { display: flex; flex-wrap: wrap; gap: 4px 8px; margin-top: 4px; }
+.used-in button { all: unset; color: var(--red); cursor: pointer; font-size: 10px; font-weight: 700; }
+.used-in button:hover, .used-in button:focus-visible { text-decoration: underline; }
 .price-options { flex: 0 0 auto; color: var(--brown); font-size: 10px; }
 .price-options summary { cursor: pointer; font-weight: 700; }
 .price-options div { display: flex; flex-direction: column; gap: 3px; margin-top: 5px; }
