@@ -72,9 +72,10 @@ h3,
 .sidebar {
   width: 224px;
   flex-shrink: 0;
-  background: var(--black);
-  color: var(--sand);
-  padding: 30px 18px 22px;
+  background: var(--white);
+  color: var(--black);
+  border-right: 1px solid var(--line);
+  padding: 28px 16px 20px;
   display: flex;
   flex-direction: column;
 }
@@ -102,12 +103,12 @@ h3,
   font-weight: 700;
   font-size: 20px;
   line-height: 1.05;
-  color: var(--white);
+  color: var(--black);
 }
 .brand-sub {
   font-size: 10px;
   letter-spacing: 0.06em;
-  color: var(--gold-soft);
+  color: var(--red);
   margin-top: 3px;
   font-weight: 600;
 }
@@ -126,7 +127,7 @@ nav.navlist {
   border-radius: 11px;
   font-size: 14.5px;
   font-weight: 500;
-  color: #cfe0db;
+  color: var(--muted);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -139,22 +140,22 @@ nav.navlist {
   opacity: 0.9;
 }
 .navlist button:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: var(--white);
+  background: var(--paper);
+  color: var(--black);
 }
 .navlist button.active {
-  background: var(--red);
+  background: var(--black);
   color: var(--white);
   font-weight: 700;
 }
 .sidebar-footer {
   margin-top: auto;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--line);
 }
 .quest-card {
-  background: var(--black-soft);
-  border: 1px solid rgba(232, 178, 61, 0.25);
+  background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: var(--radius-md);
   padding: 14px;
   margin-bottom: 14px;
@@ -162,19 +163,19 @@ nav.navlist {
 .quest-card .qtitle {
   font-size: 11px;
   letter-spacing: 0.04em;
-  color: var(--gold-soft);
+  color: var(--red);
   margin-bottom: 6px;
   font-weight: 700;
 }
 .quest-card .qname {
   font-family: "Baloo 2", sans-serif;
   font-size: 15px;
-  color: var(--white);
+  color: var(--black);
   margin-bottom: 8px;
 }
 .xpbar {
   height: 7px;
-  background: rgba(255, 255, 255, 0.13);
+  background: var(--white);
   border-radius: 99px;
   overflow: hidden;
 }
@@ -186,7 +187,7 @@ nav.navlist {
 }
 .xp-label {
   font-size: 10.5px;
-  color: #b9cfc9;
+  color: var(--muted);
   margin-top: 6px;
 }
 .logout-btn {
@@ -194,13 +195,13 @@ nav.navlist {
   display: flex;
   align-items: center;
   gap: 9px;
-  color: #cfe0db;
+  color: var(--muted);
   font-size: 13.5px;
   padding: 8px 12px;
   cursor: pointer;
 }
 .logout-btn:hover {
-  color: var(--white);
+  color: var(--red);
 }
 
 /* ---------- MAIN ---------- */
@@ -215,6 +216,7 @@ nav.navlist {
   align-items: center;
   gap: 16px;
   padding: 22px 30px 20px;
+  background: var(--white);
   border-bottom: 1px solid var(--line);
 }
 .search {
@@ -223,7 +225,8 @@ nav.navlist {
   display: flex;
   align-items: center;
   gap: 9px;
-  background: var(--paper);
+  background: var(--cream);
+  border: 1px solid var(--line);
   border-radius: 99px;
   padding: 9px 16px;
   font-size: 13.5px;
@@ -268,7 +271,7 @@ nav.navlist {
   display: flex;
   align-items: center;
   gap: 9px;
-  background: var(--paper);
+  background: var(--cream-deep);
   border-radius: 99px;
   padding: 5px 14px 5px 6px;
   cursor: pointer;
