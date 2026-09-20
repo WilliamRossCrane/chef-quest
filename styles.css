@@ -1402,8 +1402,10 @@ table.recipe-log tr:last-child td {
 .price-item {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
+  background: var(--white);
   padding: 12px;
   margin-bottom: 10px;
+  box-shadow: 0 3px 0 rgba(234, 216, 196, 0.5);
 }
 .price-item.crossed {
   opacity: 0.55;
@@ -1418,13 +1420,16 @@ table.recipe-log tr:last-child td {
   display: flex;
   align-items: center;
   gap: 8px;
+  background: var(--cream);
+  border-radius: var(--radius-sm);
+  padding: 7px;
 }
 .price-item .swatch-md {
   width: 44px;
   height: 44px;
   border-radius: 9px;
   flex-shrink: 0;
-  background: var(--paper);
+  background: var(--peach-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1458,15 +1463,15 @@ table.recipe-log tr:last-child td {
   width: 22px;
   height: 22px;
   border-radius: 99px;
-  background: var(--paper);
-  color: var(--black);
+  background: var(--black);
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
 }
 .store-arrows button:hover {
-  background: var(--gold-soft);
+  background: var(--red);
 }
 .have-tag {
   display: inline-block;
