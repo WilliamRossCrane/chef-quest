@@ -321,21 +321,21 @@ nav.navlist {
 .welcome-card {
   flex: 1.4;
   min-width: 280px;
-  background: linear-gradient(135deg, var(--black), var(--black-soft));
+  background: linear-gradient(135deg, var(--peach), var(--peach-soft));
   border-radius: var(--radius-lg);
   padding: 26px 28px;
-  color: var(--white);
+  color: var(--ink);
   position: relative;
   overflow: hidden;
 }
 .welcome-card h2 {
-  color: var(--white);
+  color: var(--black);
   font-size: 26px;
   margin-bottom: 8px;
 }
 .welcome-card p {
   font-size: 13.5px;
-  color: #cfe0db;
+  color: var(--ink);
   max-width: 340px;
   line-height: 1.5;
   margin-bottom: 16px;
@@ -345,7 +345,7 @@ nav.navlist {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--red);
+  background: var(--black);
   color: var(--white);
   font-weight: 700;
   font-size: 13px;
@@ -356,7 +356,7 @@ nav.navlist {
   z-index: 2;
 }
 .cta-btn:hover {
-  background: var(--red-deep);
+  background: var(--navy-deep);
 }
 .cta-btn.gold {
   background: var(--gold);
@@ -377,7 +377,8 @@ nav.navlist {
 .streak-card {
   flex: 1;
   min-width: 220px;
-  background: var(--paper);
+  background: var(--white);
+  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 22px 24px;
   display: flex;
@@ -405,7 +406,7 @@ nav.navlist {
   height: 24px;
   border-radius: 7px;
   background: var(--black);
-  color: var(--gold);
+  color: var(--peach);
   display: flex;
   align-items: center;
   justify-content: center;
