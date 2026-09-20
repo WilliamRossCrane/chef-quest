@@ -616,6 +616,7 @@ Object.entries(recipeCategories).forEach(([id, category]) => { recipesDB[id].cat
   ========================================================= */
 let currentRecipeId = "choc-balls";
 let activeSavedFilter = "all";
+let activeCategory = "all";
 let searchTerm = "";
 let activeMealAllergy = "all";
 const priceIndex = {}; // per-ingredient selected store index, keyed by recipeId::ingId
@@ -785,9 +786,10 @@ function renderSavedRecipes() {
     if (!isRecipeSafe(r)) return;
     const matchesFilter =
       activeSavedFilter === "all" || r.tags.includes(activeSavedFilter);
+    const matchesCategory = activeCategory === "all" || r.category === activeCategory;
     const matchesSearch =
       !searchTerm || r.name.toLowerCase().includes(searchTerm);
-    if (!matchesFilter || !matchesSearch) return;
+    if (!matchesFilter || !matchesCategory || !matchesSearch) return;
     shown++;
     const row = document.createElement("div");
     row.className = "recipe-row";
@@ -796,7 +798,7 @@ function renderSavedRecipes() {
         <div class="recipe-thumb">${r.icon}</div>
         <div class="recipe-info">
           <div class="rname">${r.name}</div>
-          <div class="rmeta">Made last on ${r.savedDate} · ${r.time}</div>
+          <div class="rmeta"><span class="recipe-category">${r.category}</span> · ${r.time} · ${r.tags.join(" · ")}</div>
         </div>
         <button class="star-btn ${r.saved ? "saved" : ""}" aria-label="Remove ${r.name} from saved recipes" onclick="toggleRecipeSave('${id}', event)">★</button>`;
     list.appendChild(row);
@@ -807,6 +809,8 @@ function renderSavedRecipes() {
     const r = recipesDB[id];
     if (r.saved) return;
     if (!isRecipeSafe(r)) return;
+    if (activeSavedFilter !== "all" && !r.tags.includes(activeSavedFilter)) return;
+    if (activeCategory !== "all" && r.category !== activeCategory) return;
     if (searchTerm && !r.name.toLowerCase().includes(searchTerm)) return;
     const row = document.createElement("div");
     row.className = "suggest-row";
@@ -815,7 +819,7 @@ function renderSavedRecipes() {
         <div class="recipe-thumb">${r.icon}</div>
         <div class="recipe-info">
           <div class="rname">${r.name}</div>
-          <div class="rmeta">${r.match}</div>
+          <div class="rmeta"><span class="recipe-category">${r.category}</span> · ${r.match}</div>
         </div>
         <div class="arrow-ic">→</div>`;
     suggestList.appendChild(row);
@@ -843,6 +847,10 @@ document.querySelectorAll("#filterRow .chip").forEach((c) => {
     activeSavedFilter = c.dataset.filter;
     renderSavedRecipes();
   });
+});
+document.getElementById("categoryFilter").addEventListener("change", (event) => {
+  activeCategory = event.target.value;
+  renderSavedRecipes();
 });
 
 /* ---- top search bar: filters Saved Recipes, jumps there if needed ---- */
@@ -1021,9 +1029,11 @@ function resetDemo() {
     (day) => (mealSelections[day] = defaultMealSelections[day]),
   );
   activeSavedFilter = "all";
+  activeCategory = "all";
   activeMealAllergy = "all";
   searchTerm = "";
   document.getElementById("topSearch").value = "";
+  document.getElementById("categoryFilter").value = "all";
   syncProfileUI();
   renderDashboard();
   renderSavedRecipes();
