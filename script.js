@@ -78,7 +78,7 @@ const recipesDB = {
   "chicken-pesto": {
     name: "Chicken Pesto Pasta",
     icon: "🍝",
-    tags: ["dairy-free", "under30"],
+    tags: ["under30"],
     time: "25 min",
     saved: true,
     savedDate: "Friday, 28 Aug",
@@ -509,6 +509,107 @@ const recipesDB = {
     },
   },
 };
+
+function catalogueIngredient(id, name, icon, have, options) {
+  return { id, name, icon, have, options };
+}
+
+function catalogueRecipe(name, icon, category, tags, time, desc, ingredients, steps, dietTips, match) {
+  return { name, icon, category, tags, time, saved: false, match, desc, ingredients, steps, dietTips };
+}
+
+Object.assign(recipesDB, {
+  "overnight-oats": catalogueRecipe(
+    "Overnight Oats", "🥣", "Breakfast", ["vegetarian", "under30"], "10 min",
+    "A creamy make-ahead breakfast with oats, yoghurt, fruit and a little honey.",
+    [catalogueIngredient("o1", "Rolled oats (500g)", "🌾", false, [{ store: "Woolworths Ormeau", price: 2.2 }, { store: "Coles Ormeau", price: 2.4 }, { store: "Aldi Ormeau", price: 1.9 }]), catalogueIngredient("o2", "Greek yoghurt (500g)", "🥣", true, [{ store: "Coles Ormeau", price: 4.5 }, { store: "Woolworths Ormeau", price: 4.7 }, { store: "Aldi Ormeau", price: 4.0 }]), catalogueIngredient("o3", "Banana (1 bunch)", "🍌", false, [{ store: "Woolworths Ormeau", price: 3.5 }, { store: "Coles Ormeau", price: 3.5 }, { store: "IGA Ormeau", price: 4.0 }])],
+    [{ b: "Combine", t: "stir oats, yoghurt, sliced banana and a splash of milk in a jar." }, { b: "Chill", t: "cover and refrigerate overnight." }, { b: "Serve", t: "top with fruit and enjoy cold." }],
+    { Vegan: "Use plant-based yoghurt and milk.", "Dairy-free": "Use a dairy-free yoghurt and milk alternative.", "Gluten-free": "Choose certified gluten-free oats." }, "Easy breakfast from pantry staples"
+  ),
+  "banana-pancakes": catalogueRecipe(
+    "Banana Pancakes", "🥞", "Breakfast", ["vegetarian"], "25 min",
+    "Soft banana pancakes with a golden edge, made for a relaxed weekend breakfast.",
+    [catalogueIngredient("bp1", "Bananas (3)", "🍌", false, [{ store: "Woolworths Ormeau", price: 3.5 }, { store: "Coles Ormeau", price: 3.5 }, { store: "Aldi Ormeau", price: 3.0 }]), catalogueIngredient("bp2", "Plain flour (1kg)", "🌾", true, [{ store: "Coles Ormeau", price: 1.6 }, { store: "Woolworths Ormeau", price: 1.55 }, { store: "IGA Ormeau", price: 1.8 }]), catalogueIngredient("bp3", "Eggs (6 pack)", "🥚", false, [{ store: "Coles Ormeau", price: 4.5 }, { store: "Woolworths Ormeau", price: 4.3 }, { store: "Aldi Ormeau", price: 3.95 }])],
+    [{ b: "Mash", t: "mash ripe bananas in a mixing bowl." }, { b: "Whisk", t: "add eggs, flour and milk and whisk until just combined." }, { b: "Cook", t: "cook spoonfuls in a lightly greased pan until golden on both sides." }],
+    { Vegan: "Use a flax egg and plant-based milk.", "Dairy-free": "Use dairy-free milk and butter for the pan.", "Gluten-free": "Use a gluten-free flour blend." }, "A quick weekend breakfast"
+  ),
+  "egg-avocado-toast": catalogueRecipe(
+    "Egg & Avocado Toast", "🥑", "Breakfast", ["vegetarian", "under30"], "15 min",
+    "Smashed avocado and a jammy egg on crunchy toast with lemon and pepper.",
+    [catalogueIngredient("eat1", "Avocado (2)", "🥑", false, [{ store: "Woolworths Ormeau", price: 2.5 }, { store: "Coles Ormeau", price: 2.8 }, { store: "Aldi Ormeau", price: 2.2 }]), catalogueIngredient("eat2", "Sourdough bread (loaf)", "🍞", false, [{ store: "Coles Ormeau", price: 4.5 }, { store: "Woolworths Ormeau", price: 4.8 }, { store: "IGA Ormeau", price: 5.0 }]), catalogueIngredient("eat3", "Eggs (6 pack)", "🥚", true, [{ store: "Coles Ormeau", price: 4.5 }, { store: "Woolworths Ormeau", price: 4.3 }, { store: "Aldi Ormeau", price: 3.95 }])],
+    [{ b: "Toast", t: "toast the sourdough until crisp." }, { b: "Boil", t: "boil eggs for 6–7 minutes, then cool briefly." }, { b: "Assemble", t: "smash avocado onto toast and top with sliced egg." }],
+    { Vegan: "Replace egg with seasoned chickpeas or tofu.", "Dairy-free": "Already dairy-free as written; check the bread label.", "Gluten-free": "Use gluten-free bread." }, "Fast breakfast with fresh ingredients"
+  ),
+  "chicken-wrap": catalogueRecipe(
+    "Chicken Wrap", "🌯", "Lunch", ["under30"], "20 min",
+    "A fresh chicken wrap with crunchy salad, creamy dressing and a soft tortilla.",
+    [catalogueIngredient("cw1", "Chicken breast (500g)", "🍗", false, [{ store: "Woolworths Ormeau", price: 8.5 }, { store: "Coles Ormeau", price: 8.9 }, { store: "Aldi Ormeau", price: 7.95 }]), catalogueIngredient("cw2", "Tortilla wraps (8 pack)", "🌯", false, [{ store: "Coles Ormeau", price: 3.5 }, { store: "Woolworths Ormeau", price: 3.7 }, { store: "Aldi Ormeau", price: 3.2 }]), catalogueIngredient("cw3", "Salad leaves (bag)", "🥬", true, [{ store: "Woolworths Ormeau", price: 3.0 }, { store: "Coles Ormeau", price: 3.2 }, { store: "IGA Ormeau", price: 3.5 }])],
+    [{ b: "Cook", t: "season and pan-cook chicken until golden and cooked through." }, { b: "Slice", t: "rest the chicken, then slice it into strips." }, { b: "Wrap", t: "fill wraps with chicken, salad and dressing, then roll tightly." }],
+    { Vegan: "Use seasoned tofu or chickpeas instead of chicken.", "Dairy-free": "Choose a dairy-free dressing.", "Gluten-free": "Use gluten-free wraps." }, "Lunch-ready chicken and salad"
+  ),
+  "veggie-rice-bowl": catalogueRecipe(
+    "Veggie Rice Bowl", "🍚", "Lunch", ["vegan", "vegetarian", "dairy-free", "gluten-free"], "30 min",
+    "A colourful rice bowl with roasted vegetables, chickpeas and a lemon dressing.",
+    [catalogueIngredient("vrb1", "Jasmine rice (1kg)", "🍚", false, [{ store: "Woolworths Ormeau", price: 3.2 }, { store: "Coles Ormeau", price: 3.5 }, { store: "Aldi Ormeau", price: 2.8 }]), catalogueIngredient("vrb2", "Chickpeas (400g can)", "🫘", true, [{ store: "Coles Ormeau", price: 1.2 }, { store: "Woolworths Ormeau", price: 1.3 }, { store: "Aldi Ormeau", price: 1.0 }]), catalogueIngredient("vrb3", "Seasonal vegetables (500g)", "🥦", false, [{ store: "Woolworths Ormeau", price: 5.0 }, { store: "Coles Ormeau", price: 5.5 }, { store: "IGA Ormeau", price: 6.0 }])],
+    [{ b: "Cook", t: "rinse and cook rice according to the packet instructions." }, { b: "Roast", t: "roast chopped vegetables until tender and lightly browned." }, { b: "Build", t: "layer rice, chickpeas and vegetables with lemon dressing." }],
+    { Vegan: "Already vegan as written.", "Dairy-free": "Already dairy-free as written.", "Gluten-free": "Already gluten-free as written; check packaged sauces." }, "Colourful plant-based lunch"
+  ),
+  "tuna-pasta-salad": catalogueRecipe(
+    "Tuna Pasta Salad", "🥗", "Lunch", ["dairy-free", "under30"], "25 min",
+    "A bright pasta salad with tuna, corn, cucumber and a simple lemon dressing.",
+    [catalogueIngredient("tps1", "Spiral pasta (500g)", "🍝", false, [{ store: "Coles Ormeau", price: 2.5 }, { store: "Woolworths Ormeau", price: 2.3 }, { store: "Aldi Ormeau", price: 2.0 }]), catalogueIngredient("tps2", "Tuna in springwater (425g)", "🐟", true, [{ store: "Woolworths Ormeau", price: 5.5 }, { store: "Coles Ormeau", price: 5.8 }, { store: "Aldi Ormeau", price: 4.8 }]), catalogueIngredient("tps3", "Cucumber (1)", "🥒", false, [{ store: "Woolworths Ormeau", price: 1.8 }, { store: "Coles Ormeau", price: 2.0 }, { store: "IGA Ormeau", price: 2.2 }])],
+    [{ b: "Boil", t: "cook pasta until al dente, then cool under running water." }, { b: "Mix", t: "toss pasta with drained tuna, cucumber and corn." }, { b: "Dress", t: "finish with lemon juice, olive oil, salt and pepper." }],
+    { Vegan: "Replace tuna with chickpeas or white beans.", "Dairy-free": "Already dairy-free as written.", "Gluten-free": "Use gluten-free pasta." }, "Packable lunch with pantry tuna"
+  ),
+  "chicken-stir-fry": catalogueRecipe(
+    "Chicken Stir Fry", "🥘", "Dinner", ["dairy-free", "under30"], "25 min",
+    "Tender chicken and crisp vegetables tossed in a savoury stir-fry sauce.",
+    [catalogueIngredient("csf1", "Chicken thigh (500g)", "🍗", false, [{ store: "Woolworths Ormeau", price: 8.0 }, { store: "Coles Ormeau", price: 8.5 }, { store: "Aldi Ormeau", price: 7.5 }]), catalogueIngredient("csf2", "Stir-fry vegetables (500g)", "🥦", false, [{ store: "Coles Ormeau", price: 5.0 }, { store: "Woolworths Ormeau", price: 5.5 }, { store: "Aldi Ormeau", price: 4.5 }]), catalogueIngredient("csf3", "Soy sauce (250ml)", "🥫", true, [{ store: "Woolworths Ormeau", price: 2.5 }, { store: "Coles Ormeau", price: 2.7 }, { store: "IGA Ormeau", price: 3.0 }])],
+    [{ b: "Slice", t: "cut chicken into thin strips and prepare the vegetables." }, { b: "Sear", t: "stir-fry chicken in a hot pan until browned and cooked through." }, { b: "Toss", t: "add vegetables and sauce, then cook until crisp-tender." }],
+    { Vegan: "Swap chicken for tofu or mushrooms.", "Dairy-free": "Already dairy-free as written.", "Gluten-free": "Use gluten-free tamari instead of regular soy sauce." }, "Quick pan dinner for busy nights"
+  ),
+  "beef-tacos": catalogueRecipe(
+    "Beef Tacos", "🌮", "Dinner", ["dairy-free", "under30"], "25 min",
+    "Seasoned beef mince tucked into crisp taco shells with tomato and fresh herbs.",
+    [catalogueIngredient("bt1", "Beef mince (500g)", "🥩", false, [{ store: "Woolworths Ormeau", price: 7.0 }, { store: "Coles Ormeau", price: 7.4 }, { store: "Aldi Ormeau", price: 6.2 }]), catalogueIngredient("bt2", "Taco shells (12 pack)", "🌮", false, [{ store: "Coles Ormeau", price: 3.5 }, { store: "Woolworths Ormeau", price: 3.7 }, { store: "Aldi Ormeau", price: 3.0 }]), catalogueIngredient("bt3", "Tomatoes (4)", "🍅", true, [{ store: "Woolworths Ormeau", price: 4.0 }, { store: "Coles Ormeau", price: 4.5 }, { store: "IGA Ormeau", price: 5.0 }])],
+    [{ b: "Brown", t: "cook beef mince with taco seasoning until browned." }, { b: "Warm", t: "heat taco shells according to the packet instructions." }, { b: "Fill", t: "add beef, chopped tomato and your favourite fresh toppings." }],
+    { Vegan: "Use black beans or plant-based mince.", "Dairy-free": "Skip sour cream and check the taco seasoning label.", "Gluten-free": "Use certified gluten-free taco shells and seasoning." }, "Build-your-own family dinner"
+  ),
+  "vegetable-curry": catalogueRecipe(
+    "Vegetable Curry", "🍛", "Dinner", ["vegan", "vegetarian", "dairy-free", "gluten-free"], "40 min",
+    "A warming vegetable curry with coconut milk, chickpeas and fragrant spices.",
+    [catalogueIngredient("vc1", "Coconut milk (400ml)", "🥥", false, [{ store: "Woolworths Ormeau", price: 2.5 }, { store: "Coles Ormeau", price: 2.7 }, { store: "Aldi Ormeau", price: 2.2 }]), catalogueIngredient("vc2", "Chickpeas (400g can)", "🫘", true, [{ store: "Coles Ormeau", price: 1.2 }, { store: "Woolworths Ormeau", price: 1.3 }, { store: "Aldi Ormeau", price: 1.0 }]), catalogueIngredient("vc3", "Curry vegetables (600g)", "🥕", false, [{ store: "Woolworths Ormeau", price: 5.0 }, { store: "Coles Ormeau", price: 5.5 }, { store: "IGA Ormeau", price: 6.0 }])],
+    [{ b: "Soften", t: "cook onion and spices until fragrant." }, { b: "Simmer", t: "add vegetables, chickpeas and coconut milk and simmer until tender." }, { b: "Serve", t: "serve with rice or warm flatbread." }],
+    { Vegan: "Already vegan as written.", "Dairy-free": "Already dairy-free as written.", "Gluten-free": "Serve with rice and check curry paste labels." }, "Comforting pantry-friendly curry"
+  ),
+  "homemade-pizza": catalogueRecipe(
+    "Homemade Pizza", "🍕", "Dinner", ["vegetarian"], "45 min",
+    "A simple homemade pizza with tomato passata, mozzarella and colourful vegetables.",
+    [catalogueIngredient("hp1", "Pizza bases (2 pack)", "🍕", false, [{ store: "Coles Ormeau", price: 4.0 }, { store: "Woolworths Ormeau", price: 4.5 }, { store: "Aldi Ormeau", price: 3.5 }]), catalogueIngredient("hp2", "Mozzarella (250g)", "🧀", false, [{ store: "Woolworths Ormeau", price: 5.0 }, { store: "Coles Ormeau", price: 5.3 }, { store: "Aldi Ormeau", price: 4.5 }]), catalogueIngredient("hp3", "Tomato passata (700g)", "🍅", true, [{ store: "Woolworths Ormeau", price: 2.1 }, { store: "Coles Ormeau", price: 2.3 }, { store: "Aldi Ormeau", price: 1.8 }])],
+    [{ b: "Top", t: "spread passata over the bases and add mozzarella and vegetables." }, { b: "Bake", t: "bake at 220°C until the crust is crisp and cheese is bubbling." }, { b: "Slice", t: "rest for a few minutes before slicing and serving." }],
+    { Vegan: "Use dairy-free cheese or a cashew-free vegan cheese alternative.", "Dairy-free": "Use dairy-free mozzarella.", "Gluten-free": "Use gluten-free pizza bases." }, "Make-your-own Friday night pizza"
+  ),
+  "banana-muffins": catalogueRecipe(
+    "Banana Muffins", "🧁", "Snack", ["vegetarian"], "35 min",
+    "Moist banana muffins with a soft crumb, ideal for lunchboxes and afternoon tea.",
+    [catalogueIngredient("bm1", "Bananas (3)", "🍌", false, [{ store: "Woolworths Ormeau", price: 3.5 }, { store: "Coles Ormeau", price: 3.5 }, { store: "Aldi Ormeau", price: 3.0 }]), catalogueIngredient("bm2", "Self-raising flour (500g)", "🌾", true, [{ store: "Woolworths Ormeau", price: 1.7 }, { store: "Coles Ormeau", price: 1.85 }, { store: "IGA Ormeau", price: 2.0 }]), catalogueIngredient("bm3", "Brown sugar (500g)", "🍯", false, [{ store: "Woolworths Ormeau", price: 2.2 }, { store: "Coles Ormeau", price: 2.35 }, { store: "Aldi Ormeau", price: 1.95 }])],
+    [{ b: "Mash", t: "mash bananas until mostly smooth." }, { b: "Stir", t: "fold through flour, sugar, eggs and melted butter." }, { b: "Bake", t: "divide into a muffin tray and bake at 180°C until risen and golden." }],
+    { Vegan: "Use a flax egg and plant-based butter.", "Dairy-free": "Use dairy-free butter.", "Gluten-free": "Use a gluten-free self-raising flour blend." }, "Lunchbox-friendly banana bake"
+  ),
+  "fruit-yoghurt-cups": catalogueRecipe(
+    "Fruit & Yoghurt Cups", "🍓", "Snack", ["vegetarian", "under30"], "10 min",
+    "Layered yoghurt cups with seasonal fruit and crunchy toasted oats.",
+    [catalogueIngredient("fyc1", "Greek yoghurt (500g)", "🥣", true, [{ store: "Coles Ormeau", price: 4.5 }, { store: "Woolworths Ormeau", price: 4.7 }, { store: "Aldi Ormeau", price: 4.0 }]), catalogueIngredient("fyc2", "Seasonal berries (250g)", "🍓", false, [{ store: "Woolworths Ormeau", price: 5.0 }, { store: "Coles Ormeau", price: 5.5 }, { store: "IGA Ormeau", price: 6.0 }]), catalogueIngredient("fyc3", "Granola (500g)", "🥣", false, [{ store: "Coles Ormeau", price: 5.0 }, { store: "Woolworths Ormeau", price: 5.5 }, { store: "Aldi Ormeau", price: 4.5 }])],
+    [{ b: "Prepare", t: "wash and slice the fruit." }, { b: "Layer", t: "spoon yoghurt, fruit and granola into small cups." }, { b: "Chill", t: "refrigerate until ready to serve." }],
+    { Vegan: "Use coconut or soy yoghurt.", "Dairy-free": "Use a dairy-free yoghurt.", "Gluten-free": "Choose gluten-free granola." }, "No-cook snack for busy afternoons"
+  ),
+});
+
+const recipeCategories = {
+  "choc-balls": "Dessert", "chicken-pesto": "Dinner", "brown-butter-cookies": "Snack", "zucchini-slice": "Lunch",
+  gnocchi: "Dinner", "chocolate-cake": "Dessert", "butterfly-cupcakes": "Dessert", "spag-bol": "Dinner",
+};
+Object.entries(recipeCategories).forEach(([id, category]) => { recipesDB[id].category = category; });
 
 /* =========================================================
      GLOBAL STATE
