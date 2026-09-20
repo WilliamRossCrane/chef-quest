@@ -767,6 +767,7 @@ function renderSavedRecipes() {
   const list = document.getElementById("recipeList");
   const suggestList = document.getElementById("suggestList");
   const emptyNote = document.getElementById("emptyNote");
+  const suggestEmpty = document.getElementById("suggestEmpty");
   const hint = document.getElementById("filterHint");
   list.innerHTML = "";
   suggestList.innerHTML = "";
@@ -788,7 +789,7 @@ function renderSavedRecipes() {
       activeSavedFilter === "all" || r.tags.includes(activeSavedFilter);
     const matchesCategory = activeCategory === "all" || r.category === activeCategory;
     const matchesSearch =
-      !searchTerm || r.name.toLowerCase().includes(searchTerm);
+      recipeMatchesSearch(r);
     if (!matchesFilter || !matchesCategory || !matchesSearch) return;
     shown++;
     const row = document.createElement("div");
@@ -805,13 +806,14 @@ function renderSavedRecipes() {
   });
   emptyNote.style.display = shown === 0 ? "block" : "none";
 
+  let suggestionsShown = 0;
   Object.keys(recipesDB).forEach((id) => {
     const r = recipesDB[id];
     if (r.saved) return;
     if (!isRecipeSafe(r)) return;
     if (activeSavedFilter !== "all" && !r.tags.includes(activeSavedFilter)) return;
     if (activeCategory !== "all" && r.category !== activeCategory) return;
-    if (searchTerm && !r.name.toLowerCase().includes(searchTerm)) return;
+    if (!recipeMatchesSearch(r)) return;
     const row = document.createElement("div");
     row.className = "suggest-row";
     row.onclick = () => openRecipe(id);
@@ -823,7 +825,21 @@ function renderSavedRecipes() {
         </div>
         <div class="arrow-ic">→</div>`;
     suggestList.appendChild(row);
+    suggestionsShown++;
   });
+  suggestEmpty.style.display = suggestionsShown === 0 ? "block" : "none";
+}
+
+function recipeMatchesSearch(recipe) {
+  if (!searchTerm) return true;
+  const searchableText = [
+    recipe.name,
+    recipe.desc,
+    recipe.category,
+    ...recipe.tags,
+    ...recipe.ingredients.map((ingredient) => ingredient.name),
+  ].join(" ").toLowerCase();
+  return searchableText.includes(searchTerm);
 }
 
 function toggleRecipeSave(id, event) {
