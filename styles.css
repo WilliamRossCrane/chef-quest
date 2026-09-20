@@ -1,20 +1,35 @@
 :root {
-  /* Chef Quest palette - matches the original Canva mockup:
-       navy (structure/text), peach/coral (warm accents), white (cards) */
-  --black: #1b3a6b; /* navy - primary structural colour */
-  --black-soft: #2c4e82; /* lighter navy for gradients */
-  --red: #e8734a; /* coral - primary CTA colour */
-  --red-deep: #c85a34; /* coral, pressed/hover state */
-  --gold: #f2a679; /* peach - highlight accent (badges, XP bar, "coming soon") */
-  --gold-soft: #fad2ae; /* light peach - soft text/fills on dark navy */
-  --brown: #2e8b6b; /* green - positive/"have it" accent, active filter chips */
-  --brown-soft: #6fbf9a; /* light green */
-  --sand: #fdf1e4; /* page canvas background, warm cream-peach */
-  --paper: #fbe3cc; /* card-alt background: chips, search pill, swatches */
-  --white: #ffffff; /* card background */
-  --ink: #22304a; /* body text, dark navy-grey */
-  --muted: #72839b; /* muted/secondary text */
-  --line: #f0dcc4; /* borders, peach-tinted */
+  /* Original Canva direction: navy structure, peach energy, cream canvas. */
+  --navy: #24477f;
+  --navy-deep: #183765;
+  --navy-soft: #365b91;
+  --peach: #f6b487;
+  --peach-soft: #fde2c7;
+  --coral: #ed744d;
+  --coral-deep: #d85d38;
+  --cream: #fff8ef;
+  --cream-deep: #f8eadb;
+  --card: #ffffff;
+  --outline: #ead8c4;
+  --ink: #243553;
+  --muted: #71809a;
+  --positive: #32896d;
+  --positive-soft: #dcefe4;
+  --shadow-soft: 0 8px 24px rgba(36, 71, 127, 0.08);
+
+  /* Legacy names remain mapped so the existing screens share one system. */
+  --black: var(--navy);
+  --black-soft: var(--navy-soft);
+  --red: var(--coral);
+  --red-deep: var(--coral-deep);
+  --gold: var(--peach);
+  --gold-soft: var(--peach-soft);
+  --brown: var(--positive);
+  --brown-soft: #79bea0;
+  --sand: var(--cream);
+  --paper: var(--cream-deep);
+  --white: var(--card);
+  --line: var(--outline);
   --ww-green: #2e7d32; /* Woolworths brand tag */
   --cs-red: #d32f2f; /* Coles brand tag */
   --radius-sm: 10px;
@@ -49,7 +64,7 @@ h3,
   min-height: 100vh;
   display: flex;
   background: var(--white);
-  box-shadow: 0 0 60px rgba(28, 23, 18, 0.12);
+  box-shadow: var(--shadow-soft);
   position: relative;
 }
 
@@ -598,7 +613,12 @@ table.recipe-log tr:last-child td {
   outline: 2px solid var(--red);
   outline-offset: 2px;
 }
-.allergy-note { color: var(--muted); font-size: 10.5px; line-height: 1.4; margin: -10px 0 16px; }
+.allergy-note {
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.4;
+  margin: -10px 0 16px;
+}
 .chip {
   all: unset;
   font-size: 12.5px;
