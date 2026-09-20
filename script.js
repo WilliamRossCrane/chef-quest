@@ -916,7 +916,9 @@ function resetDemo() {
   profile = { ...defaultProfile, allergies: [] };
   Object.keys(priceIndex).forEach((key) => delete priceIndex[key]);
   Object.keys(mealCursor).forEach((day) => (mealCursor[day] = 0));
-  Object.keys(mealSelections).forEach((day) => (mealSelections[day] = defaultMealSelections[day]));
+  Object.keys(mealSelections).forEach(
+    (day) => (mealSelections[day] = defaultMealSelections[day]),
+  );
   activeSavedFilter = "all";
   activeMealAllergy = "all";
   searchTerm = "";
@@ -974,7 +976,8 @@ function renderWeek() {
 }
 
 function recipeMatchesMealFilters(recipe) {
-  const selectedFilter = activeMealAllergy === "all" || recipe.tags.includes(activeMealAllergy);
+  const selectedFilter =
+    activeMealAllergy === "all" || recipe.tags.includes(activeMealAllergy);
   return selectedFilter && isRecipeSafe(recipe);
 }
 
@@ -996,7 +999,10 @@ function closeMealPicker() {
 
 function renderMealPicker() {
   const list = document.getElementById("mealPickerList");
-  const query = document.getElementById("pickerSearch").value.trim().toLowerCase();
+  const query = document
+    .getElementById("pickerSearch")
+    .value.trim()
+    .toLowerCase();
   const showUnsafe = document.getElementById("unsafePickerToggle").checked;
   list.innerHTML = "";
   Object.entries(recipesDB).forEach(([id, recipe]) => {
@@ -1007,10 +1013,14 @@ function renderMealPicker() {
     card.className = "picker-recipe" + (safe ? "" : " unsafe");
     card.disabled = !safe;
     card.innerHTML = `<span class="picker-icon">${recipe.icon}</span><span class="picker-copy"><b>${recipe.name}</b><small>${recipe.time} · ${recipe.tags.join(" · ")}</small>${safe ? "" : "<em>Does not match your dietary settings</em>"}</span><span class="picker-arrow">${safe ? "Add" : "Unsafe"}</span>`;
-    if (safe) card.onclick = () => selectMeal(document.getElementById("mealPicker").dataset.day, id);
+    if (safe)
+      card.onclick = () =>
+        selectMeal(document.getElementById("mealPicker").dataset.day, id);
     list.appendChild(card);
   });
-  if (!list.children.length) list.innerHTML = '<p class="picker-empty">No recipes match this search and your current dietary settings.</p>';
+  if (!list.children.length)
+    list.innerHTML =
+      '<p class="picker-empty">No recipes match this search and your current dietary settings.</p>';
 }
 
 function selectMeal(day, recipeId) {
@@ -1028,8 +1038,12 @@ function removeMeal(day) {
   showToast("Meal removed from " + day + ".");
 }
 
-document.getElementById("pickerSearch").addEventListener("input", renderMealPicker);
-document.getElementById("unsafePickerToggle").addEventListener("change", renderMealPicker);
+document
+  .getElementById("pickerSearch")
+  .addEventListener("input", renderMealPicker);
+document
+  .getElementById("unsafePickerToggle")
+  .addEventListener("change", renderMealPicker);
 document.querySelectorAll("#allergyFilterRow .chip").forEach((c) => {
   c.addEventListener("click", () => {
     document
@@ -1197,13 +1211,21 @@ function updatePrice() {
 }
 
 function normalizeIngredientName(name) {
-  return name.replace(/\([^)]*\)/g, "").replace(/\s+/g, " ").trim().toLowerCase();
+  return name
+    .replace(/\([^)]*\)/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
 }
 
 function getPlannedRecipes() {
   return days
     .filter((day) => mealSelections[day] && recipesDB[mealSelections[day]])
-    .map((day) => ({ day, recipeId: mealSelections[day], recipe: recipesDB[mealSelections[day]] }));
+    .map((day) => ({
+      day,
+      recipeId: mealSelections[day],
+      recipe: recipesDB[mealSelections[day]],
+    }));
 }
 
 function getShoppingItems() {
@@ -1212,37 +1234,77 @@ function getShoppingItems() {
     recipe.ingredients.forEach((ingredient) => {
       const key = normalizeIngredientName(ingredient.name);
       if (!items.has(key)) {
-        items.set(key, { key, name: ingredient.name.replace(/\s*\([^)]*\)/, ""), icon: ingredient.icon, sources: [], options: [] });
+        items.set(key, {
+          key,
+          name: ingredient.name.replace(/\s*\([^)]*\)/, ""),
+          icon: ingredient.icon,
+          sources: [],
+          options: [],
+        });
       }
       const item = items.get(key);
       item.sources.push({ day, recipeId, recipeName: recipe.name, ingredient });
-      item.options.push(...ingredient.options.map((option) => ({ ...option, recipeId, ingredientId: ingredient.id })));
+      item.options.push(
+        ...ingredient.options.map((option) => ({
+          ...option,
+          recipeId,
+          ingredientId: ingredient.id,
+        })),
+      );
     });
   });
   return [...items.values()].map((item) => ({
     ...item,
     have: item.sources.every((source) => source.ingredient.have),
-    cheapest: item.options.reduce((best, option) => (!best || option.price < best.price ? option : best), null),
+    cheapest: item.options.reduce(
+      (best, option) => (!best || option.price < best.price ? option : best),
+      null,
+    ),
   }));
 }
 
 function setShoppingIngredientHave(key, have) {
-  getShoppingItems().find((item) => item.key === key)?.sources.forEach((source) => {
-    source.ingredient.have = have;
-  });
+  getShoppingItems()
+    .find((item) => item.key === key)
+    ?.sources.forEach((source) => {
+      source.ingredient.have = have;
+    });
   persistState();
   renderShoppingList();
-  if (currentRecipeId && recipesDB[currentRecipeId]) renderRecipeDetail(currentRecipeId);
+  if (currentRecipeId && recipesDB[currentRecipeId])
+    renderRecipeDetail(currentRecipeId);
 }
 
 function shoppingItemMarkup(item) {
-  const uses = [...new Set(item.sources.map((source) => source.day + " · " + source.recipeName))];
-  const useLabel = uses.length === 1 ? "Used in " + uses[0] : "Used in " + uses.length + " meals";
-  const useLinks = [...new Map(item.sources.map((source) => [source.recipeId, source])).values()]
-    .map((source) => `<button onclick="openRecipe('${source.recipeId}')">${source.day}: ${source.recipeName}</button>`)
+  const uses = [
+    ...new Set(
+      item.sources.map((source) => source.day + " · " + source.recipeName),
+    ),
+  ];
+  const useLabel =
+    uses.length === 1
+      ? "Used in " + uses[0]
+      : "Used in " + uses.length + " meals";
+  const useLinks = [
+    ...new Map(
+      item.sources.map((source) => [source.recipeId, source]),
+    ).values(),
+  ]
+    .map(
+      (source) =>
+        `<button onclick="openRecipe('${source.recipeId}')">${source.day}: ${source.recipeName}</button>`,
+    )
     .join("");
-  const priceLabel = item.cheapest ? "Cheapest demo option: " + item.cheapest.store + " · $" + item.cheapest.price.toFixed(2) : "No demo price available";
-  return `<div class="shopping-item"><label class="shopping-check"><input type="checkbox" aria-label="Mark ${item.name} as already have" ${item.have ? "checked" : ""} onchange="setShoppingIngredientHave('${item.key}', this.checked)" /><span class="checkmark"></span></label><div class="shopping-icon">${item.icon}</div><div class="shopping-item-copy"><b>${item.name}</b><span>${useLabel}</span><small>${priceLabel}</small><details class="used-in"><summary>View recipes</summary><div>${useLinks}</div></details></div>${item.options.length > 1 ? `<details class="price-options"><summary>Prices</summary><div>${item.options.map((option) => `<span>${option.store}: $${option.price.toFixed(2)}</span>`).join("")}</div></details>` : ""}</div>`;
+  const priceOptions = [
+    ...new Map(item.options.map((option) => [option.store, option])).values(),
+  ];
+  const priceLabel = item.cheapest
+    ? "Cheapest demo option: " +
+      item.cheapest.store +
+      " · $" +
+      item.cheapest.price.toFixed(2)
+    : "No demo price available";
+  return `<div class="shopping-item"><label class="shopping-check"><input type="checkbox" aria-label="Mark ${item.name} as already have" ${item.have ? "checked" : ""} onchange="setShoppingIngredientHave('${item.key}', this.checked)" /><span class="checkmark"></span></label><div class="shopping-icon">${item.icon}</div><div class="shopping-item-copy"><b>${item.name}</b><span>${useLabel}</span><small>${priceLabel}</small><details class="used-in"><summary>View recipes</summary><div>${useLinks}</div></details></div>${priceOptions.length > 1 ? `<details class="price-options"><summary>Prices</summary><div>${priceOptions.map((option) => `<span class="${option.store === item.cheapest?.store ? "cheapest" : ""}">${option.store}: $${option.price.toFixed(2)}${option.store === item.cheapest?.store ? " · cheapest" : ""}</span>`).join("")}</div></details>` : ""}</div>`;
 }
 
 function renderShoppingList() {
@@ -1254,14 +1316,25 @@ function renderShoppingList() {
   content.style.display = noMeals ? "none" : "block";
   const need = items.filter((item) => !item.have);
   const have = items.filter((item) => item.have);
-  document.getElementById("needToBuyList").innerHTML = need.map(shoppingItemMarkup).join("") || '<div class="list-empty">Nothing to buy right now.</div>';
-  document.getElementById("alreadyHaveList").innerHTML = have.map(shoppingItemMarkup).join("") || '<div class="list-empty">No ingredients marked as already have.</div>';
+  document.getElementById("needToBuyList").innerHTML =
+    need.map(shoppingItemMarkup).join("") ||
+    '<div class="list-empty">Nothing to buy right now.</div>';
+  document.getElementById("alreadyHaveList").innerHTML =
+    have.map(shoppingItemMarkup).join("") ||
+    '<div class="list-empty">No ingredients marked as already have.</div>';
   document.getElementById("shoppingNeedCount").textContent = need.length;
   document.getElementById("shoppingHaveCount").textContent = have.length;
-  document.getElementById("shoppingTotal").textContent = "$" + need.reduce((total, item) => total + (item.cheapest?.price || 0), 0).toFixed(2);
-  document.getElementById("needSectionCount").textContent = need.length + (need.length === 1 ? " item" : " items");
-  document.getElementById("haveSectionCount").textContent = have.length + (have.length === 1 ? " item" : " items");
-  document.getElementById("allOwned").style.display = items.length > 0 && need.length === 0 ? "block" : "none";
+  document.getElementById("shoppingTotal").textContent =
+    "$" +
+    need
+      .reduce((total, item) => total + (item.cheapest?.price || 0), 0)
+      .toFixed(2);
+  document.getElementById("needSectionCount").textContent =
+    need.length + (need.length === 1 ? " item" : " items");
+  document.getElementById("haveSectionCount").textContent =
+    have.length + (have.length === 1 ? " item" : " items");
+  document.getElementById("allOwned").style.display =
+    items.length > 0 && need.length === 0 ? "block" : "none";
   if (typeof renderWeekSummary === "function") renderWeekSummary();
 }
 
@@ -1269,10 +1342,17 @@ function renderWeekSummary() {
   const planned = getPlannedRecipes();
   const items = getShoppingItems();
   const need = items.filter((item) => !item.have);
-  const minutes = planned.reduce((total, entry) => total + (parseInt(entry.recipe.time, 10) || 0), 0);
-  const total = need.reduce((sum, item) => sum + (item.cheapest?.price || 0), 0);
+  const minutes = planned.reduce(
+    (total, entry) => total + (parseInt(entry.recipe.time, 10) || 0),
+    0,
+  );
+  const total = need.reduce(
+    (sum, item) => sum + (item.cheapest?.price || 0),
+    0,
+  );
   document.getElementById("plannedCount").textContent = planned.length;
-  document.getElementById("emptyCount").textContent = days.length - planned.length;
+  document.getElementById("emptyCount").textContent =
+    days.length - planned.length;
   document.getElementById("cookTime").textContent = minutes + " min";
   document.getElementById("buyCount").textContent = need.length;
   document.getElementById("mealCost").textContent = "$" + total.toFixed(2);
@@ -1289,9 +1369,14 @@ function syncProfileUI() {
   const initial = profile.name.trim().charAt(0).toUpperCase() || "M";
   document.getElementById("profName").value = profile.name;
   document.getElementById("profLocation").value = profile.location;
-  document.querySelectorAll("#profileAllergyRow .chip").forEach((chip) =>
-    chip.classList.toggle("active", profile.allergies.includes(chip.dataset.diet)),
-  );
+  document
+    .querySelectorAll("#profileAllergyRow .chip")
+    .forEach((chip) =>
+      chip.classList.toggle(
+        "active",
+        profile.allergies.includes(chip.dataset.diet),
+      ),
+    );
   document.getElementById("topName").textContent = profile.name;
   document.getElementById("topAvatar").textContent = initial;
   document.getElementById("profAvatar").textContent = initial;
