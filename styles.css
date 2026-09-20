@@ -57,6 +57,13 @@ h3,
   font-family: "Baloo 2", sans-serif;
   color: var(--black);
   margin: 0;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+}
+button,
+input,
+select {
+  font-family: "Inter", sans-serif;
 }
 .app {
   max-width: 1200px;
@@ -443,6 +450,7 @@ nav.navlist {
 }
 .panel-head h3 {
   font-size: 16.5px;
+  line-height: 1.1;
 }
 .tab-pills {
   display: flex;
@@ -567,7 +575,8 @@ table.recipe-log tr:last-child td {
   flex-wrap: wrap;
 }
 .section-title h2 {
-  font-size: 22px;
+  font-size: 24px;
+  line-height: 1.05;
 }
 .section-title p {
   font-size: 13px;
