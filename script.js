@@ -916,7 +916,7 @@ function resetDemo() {
   profile = { ...defaultProfile, allergies: [] };
   Object.keys(priceIndex).forEach((key) => delete priceIndex[key]);
   Object.keys(mealCursor).forEach((day) => (mealCursor[day] = 0));
-  Object.keys(mealSelections).forEach((day) => (mealSelections[day] = null));
+  Object.keys(mealSelections).forEach((day) => (mealSelections[day] = defaultMealSelections[day]));
   activeSavedFilter = "all";
   activeMealAllergy = "all";
   searchTerm = "";
@@ -1239,7 +1239,7 @@ function shoppingItemMarkup(item) {
   const uses = [...new Set(item.sources.map((source) => source.day + " · " + source.recipeName))];
   const useLabel = uses.length === 1 ? "Used in " + uses[0] : "Used in " + uses.length + " meals";
   const priceLabel = item.cheapest ? "Cheapest demo option: " + item.cheapest.store + " · $" + item.cheapest.price.toFixed(2) : "No demo price available";
-  return `<div class="shopping-item"><label class="shopping-check"><input type="checkbox" ${item.have ? "checked" : ""} onchange="setShoppingIngredientHave('${item.key}', this.checked)" /><span class="checkmark"></span></label><div class="shopping-icon">${item.icon}</div><div class="shopping-item-copy"><b>${item.name}</b><span>${useLabel}</span><small>${priceLabel}</small></div>${item.options.length > 1 ? `<details class="price-options"><summary>Prices</summary><div>${item.options.map((option) => `<span>${option.store}: $${option.price.toFixed(2)}</span>`).join("")}</div></details>` : ""}</div>`;
+  return `<div class="shopping-item"><label class="shopping-check"><input type="checkbox" aria-label="Mark ${item.name} as already have" ${item.have ? "checked" : ""} onchange="setShoppingIngredientHave('${item.key}', this.checked)" /><span class="checkmark"></span></label><div class="shopping-icon">${item.icon}</div><div class="shopping-item-copy"><b>${item.name}</b><span>${useLabel}</span><small>${priceLabel}</small></div>${item.options.length > 1 ? `<details class="price-options"><summary>Prices</summary><div>${item.options.map((option) => `<span>${option.store}: $${option.price.toFixed(2)}</span>`).join("")}</div></details>` : ""}</div>`;
 }
 
 function renderShoppingList() {
