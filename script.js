@@ -1406,7 +1406,7 @@ function runScan() {
     line.classList.remove("on");
     hint.textContent =
       "Open your cupboard and scan with a clear photo showing the ingredients clearly.";
-    btn.textContent = "▶ Preview demo scan";
+    btn.textContent = "▶ Scan here · demo preview";
     empty.style.display = "none";
     body.classList.add("on");
     scanning = false;

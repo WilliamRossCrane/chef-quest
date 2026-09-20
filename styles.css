@@ -781,8 +781,8 @@ table.recipe-log tr:last-child td {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--paper);
-  border: 1.5px dashed var(--brown-soft);
+  background: var(--peach-soft);
+  border: 1.5px dashed var(--peach);
   border-radius: var(--radius-md);
   padding: 14px 18px;
   margin-bottom: 22px;
@@ -809,9 +809,10 @@ table.recipe-log tr:last-child td {
   }
 }
 .scan-zone {
-  border: 2px dashed var(--brown-soft);
+  border: 2px dashed var(--peach);
   border-radius: var(--radius-lg);
-  background: var(--paper);
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
   padding: 34px 24px;
   text-align: center;
 }
@@ -821,15 +822,8 @@ table.recipe-log tr:last-child td {
   margin: 0 auto 18px;
   aspect-ratio: 4/3;
   border-radius: var(--radius-md);
-  background:
-    linear-gradient(var(--black) 2px, transparent 2px) 0 0,
-    linear-gradient(90deg, var(--black) 2px, transparent 2px) 0 0,
-    #ede3c4;
-  background-size:
-    16px 16px,
-    16px 16px,
-    100% 100%;
-  background-repeat: no-repeat;
+  background: var(--cream);
+  border: 2px solid var(--black);
   position: relative;
   display: flex;
   align-items: center;
@@ -838,7 +832,8 @@ table.recipe-log tr:last-child td {
 }
 .scan-frame .hint {
   font-size: 13px;
-  color: var(--muted);
+  color: var(--black);
+  font-weight: 600;
   padding: 0 30px;
 }
 .corner {
@@ -902,7 +897,7 @@ table.recipe-log tr:last-child td {
 }
 .scan-btn {
   all: unset;
-  background: var(--red);
+  background: var(--black);
   color: var(--white);
   font-weight: 700;
   font-size: 13.5px;
@@ -914,7 +909,7 @@ table.recipe-log tr:last-child td {
   gap: 8px;
 }
 .scan-btn:hover {
-  background: var(--red-deep);
+  background: var(--red);
 }
 .scan-note {
   font-size: 11.5px;
@@ -924,6 +919,9 @@ table.recipe-log tr:last-child td {
   margin-left: auto;
   margin-right: auto;
 }
+.scan-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 18px; text-align: left; }
+.scan-steps div { display: flex; align-items: flex-start; gap: 6px; color: var(--muted); font-size: 9.5px; line-height: 1.35; }
+.scan-steps b { width: 18px; height: 18px; flex: 0 0 18px; display: flex; align-items: center; justify-content: center; border-radius: 99px; background: var(--peach); color: var(--black); font-size: 10px; }
 .result-empty {
   height: 100%;
   display: flex;
@@ -935,6 +933,7 @@ table.recipe-log tr:last-child td {
   font-size: 13px;
   padding: 40px 20px;
   border: 1px solid var(--line);
+  background: var(--cream);
   border-radius: var(--radius-lg);
   min-height: 340px;
 }
